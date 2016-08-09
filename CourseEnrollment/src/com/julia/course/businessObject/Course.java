@@ -12,6 +12,7 @@ import com.julia.course.address.AmericanAddress;
 public class Course{
 	static ArrayList <Course> catalog = new ArrayList();
 	static ArrayList <Student> studentBody = new ArrayList();
+	static ArrayList <Professor> faculty= new ArrayList();
 	Map<String, Student> chineseEnrollment = new HashMap<String, Student>();
 	Map<String, Student> philEnrollment = new HashMap<String, Student>();
 	String courseName;
@@ -35,7 +36,7 @@ public class Course{
 	public void enroll (Student aStudent){
 		if (aStudent == null) { // not really needed, but just in case
 			System.out.println(aStudent + " is not found.");
-		} else if (this.getCourseName().equals("chinese101")) {
+		} else if (this.getCourseName().equals("chin101")) {
 			if (chineseEnrollment.get(aStudent.getFullName()) != null){
 			System.out.println(aStudent.getFullName() + " is already enrolled in " + this.courseName + ".\n");
 			} else {
@@ -54,7 +55,7 @@ public class Course{
 		}
 		
 	public void listEnrolledStudents (){
-		if (this.courseName.equals("chinese101")){
+		if (this.courseName.equals("chin101")){
 			System.out.println("for course - " + this.courseName);
 			System.out.println(chineseEnrollment.keySet());
 			System.out.println("There are " + this.courseSeats + " seats left for " + this.courseName + ".\n");
@@ -84,24 +85,12 @@ public class Course{
 		catalog.add(chin101);
 		catalog.add(phil101);
 		
-		// assign the professors who are teaching
-		
-		Professor kent = new Professor("kent");
-		Professor huang = new Professor("huang");
-		
-		kent.teaching(phil101); 
-		huang.teaching(chin101);
-		
-		
-		Student julia = new Student("julia");
-		studentBody.add(julia);
-		
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter 'b' to begin.");
 		String input = scanner.next();
 		if (input.equals("b")){
 		while (! input.equals("q")){
-			System.out.println("Please enter 's' to search. Please enter 'c' to enroll students. Please enter 'l' to list commands. " +
+			System.out.println("Please enter 's' to search. Please enter 'a' to add people. Please enter 'l' to list commands. " +
 					"Otherwise, please enter 'q' to quit.");
 					input = scanner.next();
 				if (! input.equals("q") && input.equals("s")){
@@ -158,33 +147,83 @@ public class Course{
 					}
 					}
 				
-				else if (! input.equals("q") && (input.equals("e") || input.equals("c"))){
-				System.out.println("Please enter the course and student's name, followed by Enter.");
-				String aCourseName = scanner.next();
-				String aStudent = scanner.next();
-				
-					if (aCourseName.equals(chin101.getCourseName())){
-						for (int i=0; i < studentBody.size(); i++){
-							Student theStudent = studentBody.get(i);
-							if (theStudent.getFullName().equals(aStudent)){
-								chin101.enroll(theStudent);
-								theStudent.enrolled(chin101);
-							}
+				else if (! input.equals("q") && (input.equals("a"))){
+					System.out.print("Here are available commands - \n"
+							+ "'enroll' (space) 'name of the course' (space) 'name of the student': \n"
+							+ "enrolls the student to the course. \n"
+							+ "'teach' (space) 'name of the course' (space) 'name of the professor': \n"
+							+ "assigns the professor to teach the course. \n"
+							+ "'set' (space) 'address' (space) 'name of the professor or the student': \n"
+							+ "sets the address of the professor or the student. \n"
+							+ "WARNING: please first enroll a student or assign a professor to teach \n"
+							+ "before setting the address. \n");
+					System.out.println("Please enter the command, followed by the enter.");
+					String input1 = scanner.next();
+					String input2 = scanner.next();
+					String input3 = scanner.next();
+					if (input1.equals("enroll")){
+						if (false == studentBody.contains(input3)){
+							Student aStudent = new Student(input3);
+							studentBody.add(aStudent);	
 						}
-						
-					} else if (aCourseName.equals(phil101.getCourseName())){
-						for (int i=0; i < studentBody.size(); i++){
-							Student theStudent = studentBody.get(i);
-							if (theStudent.getFullName().equals(aStudent)){
-								phil101.enroll(theStudent);
-								theStudent.enrolled(phil101);
-							}
+						for (int j=0; j < studentBody.size(); j++){
+							Student aStudent = studentBody.get(j);
+							if (input3.equals(aStudent.getFullName())){
+								if (input2.equals(chin101.getCourseName())){
+									chin101.enroll(aStudent);
+									aStudent.enrolled(chin101);
+									break;
+								}else if (input2.equals(phil101.getCourseName())){
+									phil101.enroll(aStudent);
+									aStudent.enrolled(phil101);
+									break;
+								}else {
+									System.out.println(input2 + " is not found.");}
+							}}
+							
+					}else if (input1.equals("teach")){
+						if (false == faculty.contains(input3)){
+							Professor aProfessor = new Professor(input3);
+							faculty.add(aProfessor);	
 						}
-						
-					} else {
-						System.out.println(aCourseName + " or " + aStudent + " is not found.");
+						for (int i=0; i < faculty.size(); i++){
+							Professor aProfessor = faculty.get(i);
+							if (input3.equals(aProfessor.getFullName())){
+								if (input2.equals(chin101.getCourseName())){
+									aProfessor.teaching(chin101);
+									break;
+								}else if (input2.equals(phil101.getCourseName())){
+									aProfessor.teaching(phil101);
+									break;
+								}else {
+									System.out.println(input2 + " is not found.");}
+							}}
+			
+						// add course component
+						// fix if there is a duplicate
+					
+					// better way to implement this?
+					}else if (input1.equals("set")){
+						int check = 0;	
+						for (int i=0; i < faculty.size(); i++){
+							Professor aProfessor = faculty.get(i);
+							if (input3.equals(aProfessor.getFullName())){
+								aProfessor.setAddress();
+								check = 1;
+								break;
+							}}
+						for (int j=0; j < studentBody.size(); j++){
+							Student aStudent = studentBody.get(j);
+							if (input3.equals(aStudent.getFullName())){
+								aStudent.setAddress();
+								check = 1;
+								break;
+							}}
+						if (check == 0) System.out.println("The person was not found. Please try again.");
+					}else{
+						System.out.println("Invalid command. Please try again.");
 					}
-					}
+				}			
 				
 				else if (!input.equals("q") && input.equals("l")){
 					System.out.print("Here are available commands - \n"
@@ -195,16 +234,23 @@ public class Course{
 					
 					String command = scanner.next();
 					if (command.equals("listwork")){
+						int check = 0;
 						String theName = scanner.next();
-						if (theName.equals(huang.getProfessorName())){
-							huang.listWork();
-						} else if (theName.equals(kent.getProfessorName())) {
-							kent.listWork();
-						 } else if (theName.equals(julia.getFullName())) {
-							 julia.listWork();
-						 } else {
-							System.out.println(theName + " is not found.");
-						 }
+						for (int i=0; i < faculty.size(); i++){
+							Professor aProfessor = faculty.get(i);
+							if (theName.equals(aProfessor.getFullName())){
+								aProfessor.listWork();
+								check = 1;
+								break;
+							}}
+						for (int j=0; j < studentBody.size(); j++){
+							Student aStudent = studentBody.get(j);
+							if (theName.equals(aStudent.getFullName())){
+								aStudent.listWork();
+								check = 1;
+								break;
+							}}
+						if (check == 0) System.out.println("The person was not found. Please try again.");
 					}
 					else if (command.equals("liststudent")){
 						String theCourseName = scanner.next();

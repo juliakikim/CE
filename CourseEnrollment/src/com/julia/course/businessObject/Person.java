@@ -1,5 +1,7 @@
 package com.julia.course.businessObject;
 
+import java.util.Scanner;
+
 import com.julia.course.address.*;
 public class Person {
 	
@@ -12,6 +14,22 @@ public class Person {
 	}
 	
 	public Person(){}
+	
+	public void setAddress(){
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please enter the house number.");
+		String houseNumber = input.next();
+		System.out.println("Please enter the street name.");
+		String streetName = input.next();
+		System.out.println("Please enter the city.");
+		String city = input.next();
+		System.out.println("Please enter the state.");
+		String state = input.next();
+		System.out.println("Please enter the zipCode.");
+		String zipCode = input.next();
+		System.out.println(houseNumber + " " + streetName);
+		System.out.println(city + ", " + state + " " + zipCode);
+	}
 	
 	// setters and getters
 	public String getFullName() {
