@@ -1,5 +1,7 @@
 package com.julia.course.address;
 
+import java.util.Scanner;
+
 public class AmericanPOBox extends Address{
 	String country = "USA";
 	String state;
@@ -12,11 +14,12 @@ public class AmericanPOBox extends Address{
 		state = pState;
 		zipCode = pZipCode;
 	}
-
+	
 	public void getAmericanPOBox(){
-		System.out.println(poBox);
-		System.out.println(city + ", " + state + " " + zipCode);
-		System.out.println(country);
+		String newAddress = (poBox + "\n"
+				+ city + ", " + state + " " + zipCode + " " + country);
+		newAddress = newAddress.replace('-', ' ');
+		System.out.println(newAddress + "\n");
 	}
 	
 	public static void main (String args[]){

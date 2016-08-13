@@ -1,5 +1,7 @@
 package com.julia.course.address;
 
+import java.util.Scanner;
+
 public class KoreanAddress extends Address {
 	String country = "Republic of Korea";
 	String dong_floor;
@@ -21,8 +23,10 @@ public class KoreanAddress extends Address {
 	}
 	
 	public void getKoreanAddress(){
-		System.out.println(country + " " + dong_floor + " " + buildingNumber + " " + roadName + " " + eup_myeon +
+		String newAddress = (country + " " + dong_floor + " " + buildingNumber + " " + roadName + " " + eup_myeon +
 				" " + city_gun_gu + " " + province_do + " " + postalCode);
+		newAddress = newAddress.replace('-', ' ');
+		System.out.println(newAddress + "\n");
 	}
 	
 	public static void main (String args[]){

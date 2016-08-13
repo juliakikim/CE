@@ -1,36 +1,40 @@
 package com.julia.course.address;
 
+import java.util.Scanner;
+
 public class JapaneseAddress extends Address {
 	String country = "Japan";
 	String prefecture;
 	String district;
 	String chome;
 	String banchi;
-	String buildingName_number;
+	String buildingName;
+	String buildingNumber;
 	String roomNumber;
 
 	public JapaneseAddress(String pPrefecture, String pDistrict, String pCity,
-			String pChome, String pBanchi, String pBuildingName_Number, String pRoomNumber, String pPostalCode) {
+			String pChome, String pBanchi, String pBuildingName, String pBuildingNumber, String pRoomNumber, String pPostalCode) {
 		city = pCity;
 		prefecture = pPrefecture;
 		district = pDistrict;
 		chome = pChome;
 		banchi = pBanchi;
-		buildingName_number = pBuildingName_Number;
+		buildingName = pBuildingName;
+		buildingNumber = pBuildingNumber;
 		roomNumber = pRoomNumber;
 		postalCode = pPostalCode;
 	}
 	
 	public void getJapaneseAddress(){
-		System.out.println(country + "〒" + postalCode);
-		System.out.println(prefecture + " " + city + " " + district + " " + chome + " " + banchi +
-				" " + buildingName_number + " " + roomNumber);
+		String newAddress = (country + "〒" + postalCode + "\n" +
+					prefecture + " " + city + " " + district + " " + chome + " " + banchi +
+					" " + buildingName + " " + buildingNumber + " " + roomNumber);
+		newAddress = newAddress.replace('-', ' ');
+		System.out.println(newAddress + "\n");
 	}
 	
 	public static void main (String args[]){
 
-JapaneseAddress kyungin = new JapaneseAddress("Toranomon", "Minato-ku", "Tokyo", "", "", "2-5-10", "", "105-8487");
-kyungin.getJapaneseAddress();
 	}
 
 	//setters and getters
@@ -74,13 +78,6 @@ kyungin.getJapaneseAddress();
 		this.banchi = banchi;
 	}
 
-	public String getBuildingName_number() {
-		return buildingName_number;
-	}
-
-	public void setBuildingName_number(String buildingName_number) {
-		this.buildingName_number = buildingName_number;
-	}
 
 	public String getRoomNumber() {
 		return roomNumber;

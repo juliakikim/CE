@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.julia.course.address.Address;
-import com.julia.course.address.AmericanAddress;
+import com.julia.course.address.*;
+import com.julia.course.businessObject.*;
 
 
 public class Course{
@@ -90,8 +90,8 @@ public class Course{
 		String input = scanner.next();
 		if (input.equals("b")){
 		while (! input.equals("q")){
-			System.out.println("Please enter 's' to search. Please enter 'a' to add people. Please enter 'l' to list commands. " +
-					"Otherwise, please enter 'q' to quit.");
+			System.out.println("Please enter 's' to search. Please enter 'a' to add people and set address. \n"
+					+ "Please enter 'l' to list commands. Otherwise, please enter 'q' to quit. \n");
 					input = scanner.next();
 				if (! input.equals("q") && input.equals("s")){
 					System.out.print("Here are available commands - \n"
@@ -204,23 +204,49 @@ public class Course{
 					
 					// better way to implement this?
 					}else if (input1.equals("set")){
-						int check = 0;	
-						for (int i=0; i < faculty.size(); i++){
-							Professor aProfessor = faculty.get(i);
-							if (input3.equals(aProfessor.getFullName())){
-								aProfessor.setAddress();
-								check = 1;
-								break;
-							}}
-						for (int j=0; j < studentBody.size(); j++){
-							Student aStudent = studentBody.get(j);
-							if (input3.equals(aStudent.getFullName())){
-								aStudent.setAddress();
-								check = 1;
-								break;
-							}}
+						System.out.print("Please enter a number: \n"
+								+ "1 - Faculty Address \n"
+								+ "2 - Student Address \n");
+						int number = scanner.nextInt();
+						int check = 0;
+						switch(number){
+						case 1:	
+							for (int i=0; i < faculty.size(); i++){
+								Professor aProfessor = faculty.get(i);
+								if (input3.equals(aProfessor.getFullName())){
+									System.out.print("Please enter a number to choose the type of address: \n"
+											+ "1 - Home Address \n"
+											+ "2 - School Address \n"
+											+ "3 - Work Address \n"
+											+ "4 - Other Address \n");
+									int type = scanner.nextInt();
+									switch(type){
+									case 1: aProfessor.setHomeAddress(); check = 1; break;
+									case 2: aProfessor.setSchoolAddress(); check = 1; break;
+									case 3: aProfessor.setWorkAddress(); check = 1; break;
+									case 4: aProfessor.setOtherAddress(); check = 1; break;
+									}
+								}}
+						case 2:
+							for (int j=0; j < studentBody.size(); j++){
+								Student aStudent = studentBody.get(j);
+								if (input3.equals(aStudent.getFullName())){
+									System.out.print("Please enter a number to choose the type of address: \n"
+											+ "1 - Home Address \n"
+											+ "2 - School Address \n"
+											+ "3 - Work Address \n"
+											+ "4 - Other Address \n");
+									int type = scanner.nextInt();
+									switch(type){
+									case 1: aStudent.setHomeAddress(); check = 1; break;
+									case 2: aStudent.setSchoolAddress(); check = 1; break;
+									case 3: aStudent.setWorkAddress(); check = 1; break;
+									case 4: aStudent.setOtherAddress(); check = 1; break;
+								}}}
+							break;
+						}
 						if (check == 0) System.out.println("The person was not found. Please try again.");
-					}else{
+						}else{
 						System.out.println("Invalid command. Please try again.");
 					}
 				}			
@@ -230,6 +256,8 @@ public class Course{
 							+ "'listwork' (space) 'professor's last name': lists all courses that a professor teaches. \n"
 							+ "'listwork' (space) 'student's name': lists all courses that a student takes. \n"
 							+ "'liststudent' (space) 'course name': lists all students enrolled in a course. \n"
+							+ "'listaddress' (space) 'professor's last name': lists all addresses that professor has. \n"
+							+ "'listaddress' (space) 'student's name': lists all addresses that a student has. \n"
 							+ "Please enter the command followed by Enter. \n");
 					
 					String command = scanner.next();
@@ -251,8 +279,7 @@ public class Course{
 								break;
 							}}
 						if (check == 0) System.out.println("The person was not found. Please try again.");
-					}
-					else if (command.equals("liststudent")){
+					}else if (command.equals("liststudent")){
 						String theCourseName = scanner.next();
 						if (theCourseName.equals(chin101.getCourseName())){
 							chin101.listEnrolledStudents();
@@ -261,12 +288,28 @@ public class Course{
 						} else {
 							System.out.println("The course does not exist.");
 						}
-					}
-					else {
+					}else if (command.equals("listaddress")){
+						int check = 0;
+						String theName = scanner.next();
+						for (int i=0; i < faculty.size(); i++){
+							Professor aProfessor = faculty.get(i);
+							if (theName.equals(aProfessor.getFullName())){
+								aProfessor.listofAddresses.keySet();
+								check = 1;
+								break;
+							}}
+						for (int j=0; j < studentBody.size(); j++){
+							Student aStudent = studentBody.get(j);
+							if (theName.equals(aStudent.getFullName())){
+								aStudent.listofAddresses.keySet();
+								check = 1;
+								break;
+							}}
+						if (check == 0) System.out.println("The person was not found. Please try again.");
+					}else {
 						System.out.println("Please try again.");
 					}
-				}
-				else {
+				}else {
 					System.out.println("Invalid input. Please try again.");
 				}
 		}

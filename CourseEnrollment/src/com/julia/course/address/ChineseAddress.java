@@ -1,37 +1,39 @@
 package com.julia.course.address;
 
+import java.util.Scanner;
+
 public class ChineseAddress extends Address{
 	String country = "China";
 	String province;
 	String district;
 	String street;
 	String streetNumber;
-	String buildingName_number;
+	String buildingName;
+	String buildingNumber;
 	String roomNumber;
 
 	public ChineseAddress(String pProvince, String pCity, String pDistrict, String pStreet,
-			String pStreetNumber, String pBuildingName_Number, String pRoomNumber, String pPostalCode) {
+			String pStreetNumber, String pBuildingName, String pBuildingNumber, String pRoomNumber, String pPostalCode) {
 		city = pCity;
 		province = pProvince;
 		district = pDistrict;
 		street = pStreet;
 		streetNumber = pStreetNumber;
-		buildingName_number = pBuildingName_Number;
+		buildingName = pBuildingName;
+		buildingNumber = pBuildingNumber;
 		roomNumber = pRoomNumber;
 		postalCode = pPostalCode;
 	}
 	
 	public void getChineseAddress(){
-		System.out.println(country + " " + postalCode);
-		System.out.println(province + " " + city + " " + district + " " + street + " " + streetNumber +
-				" " + buildingName_number + " " + roomNumber);
+		String newAddress = (country + " " + postalCode + "\n"
+				+ province + " " + city + " " + district + " " + street + " " + streetNumber +
+				" " + buildingNumber + " "  + buildingName+ " " + roomNumber);
+		newAddress = newAddress.replace('-', ' ');
+		System.out.println(newAddress + "\n");
 	}
 	
 	public static void main (String args[]){
-
-ChineseAddress kyungin = new ChineseAddress("Liaoning", "Dalian", "Shahekou", "Zhongshan", "123",
-		"Wandahuafu", "902", "116000");
-kyungin.getChineseAddress();
 	}
 	
 	// setters and getters
@@ -75,13 +77,6 @@ kyungin.getChineseAddress();
 		this.streetNumber = streetNumber;
 	}
 
-	public String getBuildingName_number() {
-		return buildingName_number;
-	}
-
-	public void setBuildingName_number(String buildingName_number) {
-		this.buildingName_number = buildingName_number;
-	}
 
 	public String getRoomNumber() {
 		return roomNumber;

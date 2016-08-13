@@ -1,5 +1,7 @@
 package com.julia.course.address;
 
+import java.util.Scanner;
+
 public class UKAddress extends Address{
 	String country = "UK";
 	String houseNumber;
@@ -16,11 +18,12 @@ public class UKAddress extends Address{
 	}
 	
 	public void getUKAddress(){
-		System.out.println(houseNumber + " " + street);
-		System.out.println(postTown);
-		System.out.println(postalCode);
-		System.out.println(country);
-	}
+		String newAddress = (houseNumber + " " + street + "\n"
+				+ postTown + "\n"
+				+ postalCode + "\n"
+				+ country);
+		newAddress = newAddress.replace('-', ' ');
+		System.out.println(newAddress + "\n");	}
 	
 	public static void main (String args[]){
 

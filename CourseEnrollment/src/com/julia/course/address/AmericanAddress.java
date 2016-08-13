@@ -1,32 +1,32 @@
 package com.julia.course.address;
 
+import java.util.Scanner;
+import com.julia.course.businessObject.*;
 public class AmericanAddress extends Address {
 	String country = "USA";
 	String houseNumber;
-	String street;
+	String streetName;
 	String state;
 	String poBox;
 	String zipCode;
 	
-	public AmericanAddress(String pHouseNumber, String pStreet, String pCity, String pState,
+	public AmericanAddress(String pHouseNumber, String pStreetName, String pCity, String pState,
 			String pZipCode) {
 		houseNumber = pHouseNumber;
-		street = pStreet;
+		streetName = pStreetName;
 		city = pCity;
 		state = pState;
 		zipCode = pZipCode;
 	}
 	
 	public void getAmericanAddress(){
-		System.out.println(houseNumber + " " + street);
-		System.out.println(city + ", " + state + " " + zipCode);
-		System.out.println(country);
+		String newAddress = (houseNumber + " " + streetName + "\n"
+				+ city + ", " + state + " " + zipCode + " " + country);
+		newAddress = newAddress.replace('-', ' ');
+		System.out.println(newAddress + "\n");
 	}
 	
 	public static void main (String args[]){
-
-AmericanAddress kyungin = new AmericanAddress("101", "Merion Ave", "Bryn Mawr", "PA", "19010");
-kyungin.getAmericanAddress();
 	}
 
 	// setters and getters
@@ -45,15 +45,7 @@ kyungin.getAmericanAddress();
 	public void setHouseNumber(String houseNumber) {
 		this.houseNumber = houseNumber;
 	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
+	
 	public String getState() {
 		return state;
 	}
