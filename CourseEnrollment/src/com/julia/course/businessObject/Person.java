@@ -5,21 +5,28 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.julia.course.address.*;
+import com.julia.course.address.Address;
+import com.julia.course.address.AmericanAddress;
+import com.julia.course.address.AmericanPOBox;
+import com.julia.course.address.ChineseAddress;
+import com.julia.course.address.JapaneseAddress;
+import com.julia.course.address.KoreanAddress;
+import com.julia.course.address.UKAddress;
+import com.julia.course.businessObject.*;
 public class Person {
 	
-	Map<String, Address> listofAddresses = new HashMap<String, Address>();
+	Map<String, String> listofAddresses = new HashMap<String, String>();
 	String fullName;
-	Address anAddress = new Address();
+	String anAddress;
+	String location;
 	
-	public Person(String pFullName, Address pAnAddress){
+	public Person(String pFullName){
 		this.fullName = pFullName;
-		this.anAddress = pAnAddress;
 	}
 	
 	public Person(){}
 	
-	public Address setAddress(){
+	public void setAddress(){
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Please enter a number: \n"
 				+ "1 - American Address \n"
@@ -31,15 +38,14 @@ public class Person {
 		int number = scanner.nextInt();
 		// any loophole?
 		switch(number){
-		case 1: setAmericanAddress(); break;
-		case 2: setAmericanPOBox(); break;
-		case 3: setChineseAddress(); break;
-		case 4: setJapaneseAddress(); break;
-		case 5: setKoreanAddress(); break;
-		case 6: setUKAddress(); break;}
-		return anAddress;
-	}
-		
+		case 1: {setAmericanAddress(); listofAddresses.put(this.fullName+location, anAddress); break;}		
+		case 2: {setAmericanPOBox(); listofAddresses.put(this.fullName+location, anAddress); break;}
+		case 3: {setChineseAddress(); listofAddresses.put(this.fullName+location, anAddress); break;}
+		case 4: {setJapaneseAddress(); listofAddresses.put(this.fullName+location, anAddress); break;}
+		case 5: {setKoreanAddress(); listofAddresses.put(this.fullName+location, anAddress); break;}
+		case 6: {setUKAddress(); listofAddresses.put(this.fullName+location, anAddress); break;}
+	}}
+	
 	public void setAmericanAddress(){
 		Scanner input = new Scanner(System.in);
 		System.out.println("WARNING: Please enter '-' for any space.");
@@ -54,6 +60,7 @@ public class Person {
 		System.out.println("Please enter the zipCode.");
 		String zipCode = input.next();
 		AmericanAddress newAddress = new AmericanAddress(houseNumber, streetName, city, state, zipCode);
+		anAddress = newAddress.getAddress();
 	}
 	
 	public void setAmericanPOBox(){
@@ -68,8 +75,8 @@ public class Person {
 		System.out.println("Please enter the zipCode.");
 		String zipCode = input.next();
 		AmericanPOBox newAddress = new AmericanPOBox (POBox,
-				city, state, zipCode);}
-
+				city, state, zipCode);
+		anAddress = newAddress.getAddress();}
 	
 	public void setUKAddress(){
 		Scanner input = new Scanner(System.in);
@@ -84,6 +91,7 @@ public class Person {
 		String postalCode = input.next();
 		UKAddress newAddress = new UKAddress(houseNumber, street,
 				postTown, postalCode);
+		anAddress = newAddress.getAddress();
 	}
 	
 	public void setJapaneseAddress(){
@@ -109,6 +117,7 @@ public class Person {
 		String postalCode = input.next();
 		JapaneseAddress newAddress = new JapaneseAddress(prefecture, district, city,
 				chome, banchi, buildingName, buildingNumber, roomNumber, postalCode);
+		anAddress = newAddress.getAddress();
 	}
 	
 	public void setChineseAddress(){
@@ -134,6 +143,7 @@ public class Person {
 		String postalCode = input.next();
 		ChineseAddress newAddress = new ChineseAddress(postalCode, province, city, district, street, streetNumber, 
 				buildingNumber, buildingName, roomNumber);
+		anAddress = newAddress.getAddress();
 	}
 	
 	public void setKoreanAddress(){
@@ -155,40 +165,42 @@ public class Person {
 		String postalCode = input.next();
 		KoreanAddress newAddress = new KoreanAddress(dong_floor, buildingNumber,
 				roadName, eup_myeon, city_gun_gu, province_do, postalCode);
-		}
-	
-	public void listAddress(){
-		
+		anAddress = newAddress.getAddress();
 	}
+	
+	public void setHomeAddress(){
+		location = "Home";
+		setAddress();
+	}
+	
+	public void setOtherAddress(){
+		location = "Other";
+		setAddress();
+	}
+	
+	public void setWorkAddress(){
+		location = "Work";
+		setAddress();
+	}
+	
+	public void setSchoolAddress(){
+		location = "School";
+		setAddress();
+    }
+	
 	public void listHomeAddress(){
 		if (listofAddresses.get(this.fullName+"Home") == null){
 			System.out.println("there is no home address associated with this person");
 		}else{
-			listofAddresses.get(this.fullName+"Home");
+			System.out.println(listofAddresses.get(this.fullName+"Home"));
 		}
 	}
-	
-	public void setHomeAddress(){
-		listofAddresses.put(this.fullName+"Home",setAddress());
-	}
-	
-	public void setOtherAddress(){
-		listofAddresses.put(this.fullName+"Other",setAddress());
-	}
-	
-	public void setWorkAddress(){
-		listofAddresses.put(this.fullName+"Work",setAddress());
-	}
-	
-	public void setSchoolAddress(){
-	listofAddresses.put(this.fullName+"School",setAddress());
-    }
 	
 	public void listWorkAddress(){
 		if (listofAddresses.get(this.fullName+"Work") == null){
 			System.out.println("there is no home address associated with this person");
 		}else{
-			listofAddresses.get(this.fullName+"Work");
+			System.out.println(listofAddresses.get(this.fullName+"Work"));
 		}
 	}
 	
@@ -196,15 +208,7 @@ public class Person {
 		if (listofAddresses.get(this.fullName+"School") == null){
 			System.out.println("there is no home address associated with this person");
 		}else{
-			listofAddresses.get(this.fullName+"School");
-		}
-	}
-	
-	public void listOtherAddress(){
-		if (listofAddresses.get(this.fullName+"Other") == null){
-			System.out.println("there is no home address associated with this person");
-		}else{
-			listofAddresses.get(this.fullName+"Other");
+			System.out.println(listofAddresses.get(this.fullName+"School"));
 		}
 	}
 	

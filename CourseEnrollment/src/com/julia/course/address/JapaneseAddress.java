@@ -11,6 +11,7 @@ public class JapaneseAddress extends Address {
 	String buildingName;
 	String buildingNumber;
 	String roomNumber;
+	Address anAddress;
 
 	public JapaneseAddress(String pPrefecture, String pDistrict, String pCity,
 			String pChome, String pBanchi, String pBuildingName, String pBuildingNumber, String pRoomNumber, String pPostalCode) {
@@ -25,18 +26,15 @@ public class JapaneseAddress extends Address {
 		postalCode = pPostalCode;
 	}
 	
-	public void getJapaneseAddress(){
+	public String getAddress(){
 		String newAddress = (country + "〒" + postalCode + "\n" +
 					prefecture + " " + city + " " + district + " " + chome + " " + banchi +
 					" " + buildingName + " " + buildingNumber + " " + roomNumber);
 		newAddress = newAddress.replace('-', ' ');
 		System.out.println(newAddress + "\n");
-	}
+		return newAddress;}
 	
-	public static void main (String args[]){
-
-	}
-
+	
 	//setters and getters
 	public String getCountry() {
 		return country;

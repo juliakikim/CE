@@ -11,6 +11,7 @@ public class ChineseAddress extends Address{
 	String buildingName;
 	String buildingNumber;
 	String roomNumber;
+	Address anAddress;
 
 	public ChineseAddress(String pProvince, String pCity, String pDistrict, String pStreet,
 			String pStreetNumber, String pBuildingName, String pBuildingNumber, String pRoomNumber, String pPostalCode) {
@@ -25,13 +26,13 @@ public class ChineseAddress extends Address{
 		postalCode = pPostalCode;
 	}
 	
-	public void getChineseAddress(){
+	public String getAddress(){
 		String newAddress = (country + " " + postalCode + "\n"
 				+ province + " " + city + " " + district + " " + street + " " + streetNumber +
 				" " + buildingNumber + " "  + buildingName+ " " + roomNumber);
 		newAddress = newAddress.replace('-', ' ');
 		System.out.println(newAddress + "\n");
-	}
+		return newAddress;}
 	
 	public static void main (String args[]){
 	}

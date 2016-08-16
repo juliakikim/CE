@@ -7,6 +7,7 @@ public class AmericanPOBox extends Address{
 	String state;
 	String poBox;
 	String zipCode;
+	Address anAddress;
 	
 	public AmericanPOBox(String pPOBox, String pCity, String pState, String pZipCode) {
 		poBox = pPOBox;
@@ -15,17 +16,12 @@ public class AmericanPOBox extends Address{
 		zipCode = pZipCode;
 	}
 	
-	public void getAmericanPOBox(){
+	public String getAddress(){
 		String newAddress = (poBox + "\n"
 				+ city + ", " + state + " " + zipCode + " " + country);
 		newAddress = newAddress.replace('-', ' ');
 		System.out.println(newAddress + "\n");
-	}
-	
-	public static void main (String args[]){
-
-AmericanPOBox kyungin = new AmericanPOBox("P.O. Box 1234", "Bryn Mawr", "PA", "19010");
-kyungin.getAmericanPOBox();
+		return newAddress;
 	}
 	
 	// setters and getters

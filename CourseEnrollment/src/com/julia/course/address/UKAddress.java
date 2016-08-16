@@ -8,6 +8,7 @@ public class UKAddress extends Address{
 	String street;
 	String locality;
 	String postTown;
+	Address anAddress;
 	
 	public UKAddress(String pHouseNumber, String pStreet, String pPostTown,
 			String pPostalCode) {
@@ -17,19 +18,16 @@ public class UKAddress extends Address{
 		postalCode = pPostalCode;
 	}
 	
-	public void getUKAddress(){
+	public String getAddress(){
 		String newAddress = (houseNumber + " " + street + "\n"
 				+ postTown + "\n"
 				+ postalCode + "\n"
 				+ country);
 		newAddress = newAddress.replace('-', ' ');
-		System.out.println(newAddress + "\n");	}
-	
-	public static void main (String args[]){
+		System.out.println(newAddress + "\n");
+		return newAddress;}
 
-UKAddress kyungin = new UKAddress("42", "8 Flitcroft Street", "London", "WC2H 8DL");
-kyungin.getUKAddress();
-	}
+
 
 	// setters and getters
 	public String getCountry() {

@@ -9,6 +9,8 @@ public class AmericanAddress extends Address {
 	String state;
 	String poBox;
 	String zipCode;
+	Address newAddress;
+	Address anAddress;
 	
 	public AmericanAddress(String pHouseNumber, String pStreetName, String pCity, String pState,
 			String pZipCode) {
@@ -19,11 +21,12 @@ public class AmericanAddress extends Address {
 		zipCode = pZipCode;
 	}
 	
-	public void getAmericanAddress(){
+	public String getAddress(){
 		String newAddress = (houseNumber + " " + streetName + "\n"
 				+ city + ", " + state + " " + zipCode + " " + country);
 		newAddress = newAddress.replace('-', ' ');
 		System.out.println(newAddress + "\n");
+		return newAddress;
 	}
 	
 	public static void main (String args[]){

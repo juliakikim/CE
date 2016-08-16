@@ -10,6 +10,7 @@ public class KoreanAddress extends Address {
 	String eup_myeon;
 	String city_gun_gu;
 	String province_do;
+	Address anAddress;
 
 	public KoreanAddress(String pDong_Floor, String pBuildingNumber, String pRoadName, String pEup_Myeon,
 			String pCity_Gun_Gu, String pProvince_do, String pPostalCode) {
@@ -22,19 +23,15 @@ public class KoreanAddress extends Address {
 		postalCode = pPostalCode;
 	}
 	
-	public void getKoreanAddress(){
+	public String getAddress(){
 		String newAddress = (country + " " + dong_floor + " " + buildingNumber + " " + roadName + " " + eup_myeon +
 				" " + city_gun_gu + " " + province_do + " " + postalCode);
 		newAddress = newAddress.replace('-', ' ');
 		System.out.println(newAddress + "\n");
+		return newAddress;
 	}
 	
-	public static void main (String args[]){
 
-KoreanAddress kyungin = new KoreanAddress("8th Floor", "123", "Hannae-ro", "Yangseong-myeon",
-		"Anseong-si", "Gyeonggi-do", "123-123");
-kyungin.getKoreanAddress();
-	}
 
 	// setters and getters
 	public String getCountry() {

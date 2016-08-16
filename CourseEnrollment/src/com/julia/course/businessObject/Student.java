@@ -1,8 +1,6 @@
 package com.julia.course.businessObject;
 import java.util.ArrayList;
 
-import com.julia.course.address.Address;
-
 public class Student extends Worker{
 	
 	ArrayList listofEnrolledCourses = new ArrayList();

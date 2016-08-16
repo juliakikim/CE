@@ -256,8 +256,7 @@ public class Course{
 							+ "'listwork' (space) 'professor's last name': lists all courses that a professor teaches. \n"
 							+ "'listwork' (space) 'student's name': lists all courses that a student takes. \n"
 							+ "'liststudent' (space) 'course name': lists all students enrolled in a course. \n"
-							+ "'listaddress' (space) 'professor's last name': lists all addresses that professor has. \n"
-							+ "'listaddress' (space) 'student's name': lists all addresses that a student has. \n"
+							+ "'listaddress': lists all addresses of professors or students. \n"
 							+ "Please enter the command followed by Enter. \n");
 					
 					String command = scanner.next();
@@ -289,24 +288,84 @@ public class Course{
 							System.out.println("The course does not exist.");
 						}
 					}else if (command.equals("listaddress")){
+						System.out.print("Here are available commands - \n"
+								+ "'all' (space) 'professor's last name': lists all addresses that professor has. \n"
+								+ "'all' (space) 'student's name': lists all addresses that a student has. \n"
+								+ "'home' (space) 'professor's last name': lists all home addresses that professor has. \n"
+								+ "'home' (space) 'student's name': lists all home addresses that a student has. \n"
+								+ "'work' (space) 'professor's last name': lists all work addresses that professor has. \n"
+								+ "'work' (space) 'student's name': lists all work addresses that a student has. \n"
+								+ "'school' (space) 'professor's last name': lists all school addresses that professor has. \n"
+								+ "'school' (space) 'student's name': lists all school addresses that a student has. \n"
+								+ "Please enter the command followed by Enter. \n");
 						int check = 0;
+						String choice = scanner.next();
 						String theName = scanner.next();
+						if (choice.equals("all")){
 						for (int i=0; i < faculty.size(); i++){
 							Professor aProfessor = faculty.get(i);
 							if (theName.equals(aProfessor.getFullName())){
-								aProfessor.listofAddresses.keySet();
+								System.out.println(aProfessor.listofAddresses.entrySet());
 								check = 1;
 								break;
 							}}
 						for (int j=0; j < studentBody.size(); j++){
 							Student aStudent = studentBody.get(j);
 							if (theName.equals(aStudent.getFullName())){
-								aStudent.listofAddresses.keySet();
+								System.out.println(aStudent.listofAddresses.entrySet());
 								check = 1;
 								break;
 							}}
 						if (check == 0) System.out.println("The person was not found. Please try again.");
-					}else {
+					} else if (choice.equals("home")){
+						for (int i=0; i < faculty.size(); i++){
+							Professor aProfessor = faculty.get(i);
+							if (theName.equals(aProfessor.getFullName())){
+								aProfessor.listHomeAddress();
+								check = 1;
+								break;
+							}}
+						for (int j=0; j < studentBody.size(); j++){
+							Student aStudent = studentBody.get(j);
+							if (theName.equals(aStudent.getFullName())){
+								aStudent.listHomeAddress();
+								check = 1;
+								break;
+							}}
+						if (check == 0) System.out.println("The person was not found. Please try again.");
+					} else if (choice.equals("work")){
+						for (int i=0; i < faculty.size(); i++){
+							Professor aProfessor = faculty.get(i);
+							if (theName.equals(aProfessor.getFullName())){
+								aProfessor.listHomeAddress();
+								check = 1;
+								break;
+							}}
+						for (int j=0; j < studentBody.size(); j++){
+							Student aStudent = studentBody.get(j);
+							if (theName.equals(aStudent.getFullName())){
+								aStudent.listHomeAddress();
+								check = 1;
+								break;
+							}}
+						if (check == 0) System.out.println("The person was not found. Please try again.");
+					}if (choice.equals("school")){
+						for (int i=0; i < faculty.size(); i++){
+							Professor aProfessor = faculty.get(i);
+							if (theName.equals(aProfessor.getFullName())){
+								aProfessor.listSchoolAddress();
+								check = 1;
+								break;
+							}}
+						for (int j=0; j < studentBody.size(); j++){
+							Student aStudent = studentBody.get(j);
+							if (theName.equals(aStudent.getFullName())){
+								aStudent.listSchoolAddress();
+								check = 1;
+								break;
+							}}
+						if (check == 0) System.out.println("The person was not found. Please try again.");
+					}}else {
 						System.out.println("Please try again.");
 					}
 				}else {

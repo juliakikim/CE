@@ -5,19 +5,11 @@ public class Address {
 	String postalCode;
 	String country;
 	
-	
-	public Address(String pCity, String pPostalCode, String pCountry) {
-		city = pCity;
-		postalCode = pPostalCode;
-		country = pCountry;
-	}
-	
 	public Address(){
 		
 	}
-	
-	
-	
+
+
 	// setters and getters
 	public String getCity() {
 		return city;
